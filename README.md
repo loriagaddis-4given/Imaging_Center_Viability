@@ -7,7 +7,7 @@ This project evaluates the financial viability and market opportunity for establ
 
 ## 🔗 Live Deliverables
 *   **Interactive Dashboard:** [👉 Click Here to View the Tableau Public Dashboard](INSERT_YOUR_TABLEAU_PUBLIC_URL_HERE) *(Please open in an Incognito window to test)*
-*   **Technical Code:** [View the Data Cleaning & Analysis Notebook]notebooks/Imaging_Center_Project_Final.ipynb
+*   **Technical Code:** [View the Data Cleaning & Analysis Notebook]/notebooks/Imaging_Center_Project_Final.ipynb
 
 ---
 
