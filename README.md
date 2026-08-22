@@ -1,7 +1,7 @@
 # Market Feasibility for a Proposed Rural Imaging Center
 
 ## 📌 Executive Summary
-This project evaluates the financial viability and market opportunity for establishing a new outpatient imaging center in a target rural zip code (Zip: 30547). By analyzing a relational dataset of 1,000 patient demographics and 2,500 imaging encounters, I built an end-to-end data pipeline using **Excel** for data auditing, **SQL (Jupyter Notebooks)** for rigorous cleaning and transformation, and **Tableau Public** for self-service executive dashboards. The analysis quantified a potential annual revenue of **$107,105**, led heavily by high-margin MRI and CT services. Crucially, the data revealed an immediate preventive health opportunity: identifying **61** female patients over age 40 within the primary service area who are overdue for a mammogram, representing an incremental outreach revenue opportunity of **$16,428**.
+This project evaluates the financial viability and market opportunity for establishing a new outpatient imaging center in a target rural zip code (Zip: 30547). By analyzing a relational dataset of 1,000 patient demographics and 1,217 imaging encounters, I built an end-to-end data pipeline using **Excel** for data auditing, **SQL (Jupyter Notebooks)** for rigorous cleaning and transformation, and **Tableau Public** for self-service executive dashboards. The analysis quantified a potential annual revenue of **$107,105**, led heavily by high-margin MRI and CT services. Crucially, the data revealed an immediate preventive health opportunity: identifying **61** female patients over age 40 within the primary service area who are overdue for a mammogram, representing an incremental outreach revenue opportunity of **$16,428**.
 
 ---
 
