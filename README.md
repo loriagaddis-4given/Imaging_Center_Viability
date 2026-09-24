@@ -72,3 +72,8 @@ Because this analysis relies on synthetic, single-system billing data, it has a 
 *   **Lack of Competitor Leakage Data:** We can see our own patients' zip codes, but we do not know if they are traveling elsewhere for other services. If given more time, I would integrate broader regional claims databases to analyze "patient leakage" to competing health systems.
 *   **Incorporate Payer Mix Data:** Analyze the ratio of commercial insurance, Medicare, and Medicaid patients to calculate a more precise "Net Revenue" model based on standard reimbursement rates. In place of having such data, I added a count of patients by age grouping for Pediatric, Adult and Senior to possibly give some insight into at least which percentage would be based on Medicare reimbursement.
 
+## Tableau Dashboard
+
+[View the interactive Tableau dashboard](https://public.tableau.com/app/profile/lori.gaddis/viz/ImagingCenterViability/Dashboard1)
+
+[![Imaging Center Viability dashboard](<images/Imaging Center Viability Dashboard Screenshot.png>)](https://public.tableau.com/app/profile/lori.gaddis/viz/ImagingCenterViability/Dashboard1)
