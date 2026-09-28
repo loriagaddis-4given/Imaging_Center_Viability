@@ -1,79 +1,86 @@
 # Market Feasibility for a Proposed Rural Imaging Center
 
-## 📌 Executive Summary
-This project evaluates the financial viability and market opportunity for establishing a new outpatient imaging center in a target rural zip code (Zip: 30547). Using a relational dataset of 1,000 patient demographics and 1,217 imaging encounters, I built an end-to-end data pipeline using **Excel** for data auditing, **SQL (in Jupyter Notebooks)** for rigorous cleaning and transformation, and **Tableau Public** for self-service executive dashboards. The analysis quantified a potential annual revenue of **$107,105**, led heavily by high-margin MRI and CT services. In addition, the data revealed an immediate preventive health opportunity: identifying **61** female patients over age 40 within the primary service area who are overdue for a mammogram, representing an incremental outreach revenue opportunity of **$16,428**.
+## Project Overview
 
----
+This project examines imaging utilization and gross billed charges among patients from a target rural ZIP code to support an initial market-feasibility assessment for a proposed outpatient imaging center. It also identifies a potential mammography outreach population within the existing patient base.
 
-## 🔗 Live Deliverables
-*   **Interactive Dashboard:** [👉 Click Here to View the Tableau Public Dashboard](https://public.tableau.com/views/ImagingCenterViability/ImagingCenterDashboard?:language=en-US&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)
-*   **Technical Code:** [View the Data Cleaning & Analysis Notebook](./notebooks/Imaging_Center_Project_Final.ipynb)
+This public portfolio project recreates a real-world healthcare planning question using fully synthetic data. It demonstrates the analytical approach but does not reproduce an organization’s original data or results.
 
----
+## Business Questions
 
-## 💼 The Business Problem
-A regional healthcare system is evaluating whether patient volume and potential billing charges in a surrounding rural target zip code (30547) justify the capital expenditure of building a new physical imaging facility. 
+- How many imaging exams were associated with patients from the target ZIP code?
+- Which imaging modalities accounted for the greatest exam volume and gross billed charges?
+- How did imaging activity vary over the analysis period?
+- How many women age 40 or older in the target ZIP code had no net mammography record in the available data?
+- What additional information would be needed before making a capital-investment decision?
 
-To make this decision, hospital leadership requires:
-1.  **Volume & Revenue Visibility:** A clear breakdown of historical imaging counts and total charges categorized by modality (MRI, CT, X-Ray, Ultrasound, Mammography) to identify the highest-value services.
-2.  **Temporal Trends:** Interactive, self-service filtering to understand how patient revenue is distributed and whether local demand is growing over time.
-3.  **Preventive Care White Space:** A targeted marketing estimate of existing female patients over 40 who reside in the service area but have no record of mammography screenings, allowing the hospital to project immediate campaign ROI.
+## Data
 
----
+The analysis uses three related synthetic datasets:
 
-## 🗃️ Data Architecture
-To maintain strict **HIPAA data compliance**, this project utilizes an AI generated synthetic relational database designed to replicate real-world billing and clinical trends. 
+- **Visits:** Patient and encounter information, including MRN, account number, date of birth, sex, encounter dates, and ZIP code.
+- **Charges:** Imaging charge activity connected to individual encounters.
+- **Charge master:** Imaging descriptions, CPT codes, revenue codes, and gross charge amounts.
 
-The schema consists of three tables:
-*   **`visits` Table (1,000 records):** Contains unique 'acctNum', 'mrn', 'DOB', 'sex', 'admitDate', 'dischDate', and 'zip'.
-*   **`charges_new` Table (1,217 records):** Contains 'acctNum', 'chgNo', 'qty', and 'svcDate'.
-*   **'chgMast_new' Table (40 records):** Contains 'chgNo', 'description', 'CPT', 'revCode', and 'chgAmt'.
+The validated dataset contains:
 
----
+- 1,000 encounters
+- 760 unique patients
+- 1,217 charge records
+- 40 imaging charge-master records
+- Five imaging modalities
+- Positive and reversal charge quantities
 
-## 🛠️ Technical Skills & Tools Used
-*   **Excel:** Initial visual data quality auditing and documentation of data discrepancies.
-*   **SQL (PostgreSQL / DuckDB via Jupyter Notebooks):** 
-    *   Multi-table relational **`JOINs`** to isolate screening gaps.
-    *   **`CASE` Statements** for modality categorization and data standardization.
-    *   **`GROUP BY`** and aggregate functions (`SUM`, `COUNT`) for financial reporting.
-    *   **Date/Time Functions** (`try_strptime`) to convert raw text dates to structured timestamps.
-    *   **'CTE'** for creating a subset of patients who have had mammography exams done to establish the count of patients over 40 who have not had them done.
-*   **Tableau Public:** Developed an interactive, executive-facing dashboard featuring dynamic date-range filters.
+All patient and financial information is synthetic.
 
----
+## Tools
 
-## 🧠 Decision Log (The 2026 Analytical "Flex")
-*In healthcare analytics, data is never clean. Below are the critical architectural decisions and data integrity issues I identified and resolved during this project:*
+- **Excel:** Initial data review and cleaning documentation
+- **DuckDB SQL:** Data validation, cleaning, joins, aggregation, and patient-level analysis
+- **Jupyter Notebook:** Documented SQL workflow and results
+- **Tableau Public:** Interactive dashboard development
 
-1.  **Architectural Shift to Patient-Level Identifiers (MRN):** 
-    *   *Observation:* The raw billing data lacked a unique Medical Record Number (MRN) and was structured purely at the "encounter" level. 
-    *   *Decision:* I redesigned the data model to require a unique `Patient_ID` (MRN) key. This architectural shift was critical; without an MRN, it would have been impossible to run longitudinal patient-level analyses—such as identifying females over 40 who *haven't* had a mammogram.
-2.  **Standardizing Inconsistent Date Formats:** 
-    *   *Observation:* The synthetic billing system outputted inconsistent date formats (a mix of `MM/DD/YYYY` and `YYYY-MM-DD`).
-    *   *Decision:* I wrote a cleaning script in SQL to standardize all values to a strict ISO `YYYY-MM-DD` format and converted the column data type from string to `DATE` to enable Tableau's temporal filtering.
+## Methodology
 
----
+1. Validated required fields, unique identifiers, and foreign-key relationships.
+2. Confirmed that service dates fell within their associated encounter dates.
+3. Standardized inconsistent date formats.
+4. Joined encounters, imaging charges, and charge-master information.
+5. Categorized imaging activity by modality.
+6. Calculated exam volume and gross billed charges by modality and date.
+7. Used net quantities so charge reversals did not inflate results.
+8. Evaluated mammography history at the patient level rather than the individual charge-row level.
+9. Reconciled SQL results with the Tableau dashboard.
 
-## 📈 Results & Strategic Business Recommendations
+## Key Findings
 
-### 1. Modality Revenue Optimization
-*   **Finding:** While X-Ray and Ultrasound comprised **146** of total exam volume, MRI and CT services generated **167,311** of total revenue.
-*   **Recommendation:** Hospital leadership should prioritize the installation of high-margin MRI and CT suites in the new facility. Even at lower volumes, these modalities represent the fastest path to breaking even on construction costs.
+- Imaging utilization and gross billed charges varied substantially across the five modalities.
+- The dashboard provides separate views of exam volume and gross billed charges so high-charge services are not automatically treated as high-volume services.
+- Among 76 women age 40 or older in the target ZIP code, 61 had no net mammography record in the available data.
+- This group represents a **potential mammography outreach population**, not a confirmed count of patients who are clinically overdue for screening.
 
-### 2. Targeted Mammography Marketing Campaign (Preventive Care Opportunity)
-*   **Finding:** Using a custom SQL gap analysis query, I cross-referenced females over age 40 in the primary service area and discovered that **61** patients had no history of mammography screenings.
-*   **Recommendation:** Launch a highly targeted direct-outreach campaign to these existing patients. Capturing just **15%** of this overdue population would result in **10** new screenings, generating an estimated **$2,690** in immediate preventive billing.
+## Decision Use
 
----
+The analysis provides an initial view of historical utilization within the target market. It could help leadership decide whether a more complete feasibility study is warranted.
 
-## 🔮 Next Steps & Project Limitations
-Because this analysis relies on synthetic, single-system billing data, it has a few realistic limitations:
-*   **Lack of Competitor Leakage Data:** We can see our own patients' zip codes, but we do not know if they are traveling elsewhere for other services. If given more time, I would integrate broader regional claims databases to analyze "patient leakage" to competing health systems.
-*   **Incorporate Payer Mix Data:** Analyze the ratio of commercial insurance, Medicare, and Medicaid patients to calculate a more precise "Net Revenue" model based on standard reimbursement rates. In place of having such data, I added a count of patients by age grouping for Pediatric, Adult and Senior to possibly give some insight into at least which percentage would be based on Medicare reimbursement.
+It does not, by itself, establish that a new imaging center would be profitable or should be constructed. A full decision would require additional information such as payer mix, expected reimbursement, competitor activity, referral patterns, capital costs, staffing requirements, operating expenses, and projected market growth.
 
-## Tableau Dashboard
+## Project Deliverables
 
-[View the interactive Tableau dashboard](https://public.tableau.com/app/profile/lori.gaddis/viz/ImagingCenterViability/Dashboard1)
+- [View the interactive Tableau dashboard](https://public.tableau.com/app/profile/lori.gaddis/viz/ImagingCenterViability/Dashboard1)
+- [View the complete Jupyter notebook](notebooks/Imaging_Center_Project_Final.ipynb)
+- [View the data dictionary](<data_files/Data Dictionary.md>)
+- [View the SQL scripts](sql_scripts)
+- [View the synthetic source data](data_files)
+
+## Dashboard
 
 [![Imaging Center Viability dashboard](<images/Imaging Center Viability Dashboard Screenshot.png>)](https://public.tableau.com/app/profile/lori.gaddis/viz/ImagingCenterViability/Dashboard1)
+
+## Limitations
+
+- The project uses synthetic data and does not represent an actual healthcare organization.
+- Gross billed charges are chargemaster amounts before contractual adjustments. They are not payments, allowed amounts, collected revenue, profit, or return on investment.
+- The data includes activity from only one simulated health system and does not capture services performed by competitors.
+- The mammography measure identifies patients without a net mammography record in the available data. It does not confirm screening eligibility, clinical need, outside services, or patient preference.
+- Historical utilization does not constitute a future volume forecast.
